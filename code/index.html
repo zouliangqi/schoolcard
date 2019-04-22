@@ -1,0 +1,31 @@
+﻿<!DOCTYPE HTML>
+<html dir="ltr" lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录窗口</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+    <div id="container">
+    	<form name="LoginForm" method="post" action="login_conn.php">
+            <div class="login">登录</div>
+            <div class="username-text">工号:</div>
+            <div class="password-text">密码:</div>
+            <div class="username-field">
+                <input type="text" name="username" />
+            </div>
+            <div class="password-field">
+                <input type="password" name="password" />
+            </div>
+            <div class="selection">
+                <input type="radio" class="selection" name="selection" value="administrator" checked>学生&nbsp;&nbsp;
+                <input type="radio" class="selection" name="selection" value="buyer">老师&nbsp;&nbsp;
+            </div>
+            <input type="submit" name="submit" value="GO" />
+        </form>
+    </div>
+</body>
+
+</html>

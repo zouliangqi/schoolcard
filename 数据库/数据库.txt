@@ -1,0 +1,463 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.15.10
+-- https://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: 2018-03-06 16:57:57
+-- 服务器版本： 5.6.36-log
+-- PHP Version: 7.1.7
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `storesystem`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `administrator`
+--
+
+CREATE TABLE IF NOT EXISTS `administrator` (
+  `ano` char(6) NOT NULL,
+  `aname` varchar(50) NOT NULL,
+  `apassword` varchar(20) NOT NULL,
+  `aip` varchar(20) NOT NULL,
+  `astatus` varchar(10) NOT NULL,
+  `aremark` varchar(100) DEFAULT NULL,
+  `alevel` int(10) unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `administrator`
+--
+
+INSERT INTO `administrator` (`ano`, `aname`, `apassword`, `aip`, `astatus`, `aremark`, `alevel`) VALUES
+('111111', '赵一', '123456', '192.118', '男', '计算机科学与技术', 0),
+('111211', '钱二', '123457', '192.127', '男', '计算机科学与技术', 1),
+('111311', '孙三', '123458', '192.135', '男', '计算机科学与技术', 2),
+('111411', '李明', '123459', '192.143', '女', '计算机科学与技术', 2),
+('123146', '田甜', '123461', '192.162', '女', '计算机科学与技术', 0),
+('123459', '陆娜', '123462', '192.172', '女', '计算机科学与技术', 50),
+('156351', '赵满', '123460', '192.152', '男', '计算机科学与技术', 2),
+('545641', '王文', '456465', '192.551', '女', '计算机科学与技术', 3),
+('654634', '王宇', '548435', '192.652', '男', '计算机科学与技术', 3),
+('666666', '超级管理员1号', '123456', '121.212', '男', '计算机科学与技术', 100),
+('968966', '李德', '987661', '192.111', '男', '计算机科学与技术', 3);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bill`
+--
+
+CREATE TABLE IF NOT EXISTS `bill` (
+  `ano` char(6) NOT NULL,
+  `aname` varchar(50) NOT NULL,
+  `atime` date NOT NULL,
+  `status` char(11) NOT NULL,
+  `moiney` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `bill`
+--
+
+INSERT INTO `bill` (`ano`, `aname`, `atime`, `status`, `moiney`) VALUES
+('123459', '陆娜', '2018-03-01', '支付', 10),
+('123459', '陆娜', '2018-03-01', '支付', 10);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `buyer`
+--
+
+CREATE TABLE IF NOT EXISTS `buyer` (
+  `bno` char(6) NOT NULL,
+  `bpassword` varchar(20) NOT NULL,
+  `bname` varchar(20) NOT NULL,
+  `bremark` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `classification`
+--
+
+CREATE TABLE IF NOT EXISTS `classification` (
+  `cno` char(5) NOT NULL,
+  `cname` varchar(20) NOT NULL,
+  `sno` char(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `classification`
+--
+
+INSERT INTO `classification` (`cno`, `cname`, `sno`) VALUES
+('00101', '水果', '001'),
+('00102', '蔬菜', '001'),
+('00103', '肉类', '001'),
+('00201', '零食', '002'),
+('00202', '甜点', '002'),
+('00301', '办公用品', '003'),
+('00401', '空调', '004'),
+('00402', '冰箱', '004'),
+('00501', '酒', '005'),
+('00502', '饮料', '005'),
+('00601', '成人用品', '006');
+
+-- --------------------------------------------------------
+
+--
+-- 替换视图以便查看 `getorder`
+--
+CREATE TABLE IF NOT EXISTS `getorder` (
+`ono` char(20)
+,`cno` char(5)
+,`gno` char(7)
+,`bno` char(6)
+,`odate` date
+,`onumber` int(11) unsigned
+,`omoney` float unsigned
+);
+
+-- --------------------------------------------------------
+
+--
+-- 替换视图以便查看 `getstorehouse`
+--
+CREATE TABLE IF NOT EXISTS `getstorehouse` (
+`仓库编号` char(3)
+,`仓库名` varchar(20)
+);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `goods`
+--
+
+CREATE TABLE IF NOT EXISTS `goods` (
+  `gno` char(7) NOT NULL,
+  `sno` char(3) NOT NULL,
+  `cno` char(5) NOT NULL,
+  `gname` varchar(20) NOT NULL,
+  `gstocklimit` int(11) unsigned DEFAULT NULL,
+  `gnowstock` int(11) unsigned DEFAULT NULL,
+  `gremark` varchar(100) DEFAULT NULL,
+  `gprice` float unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `goods`
+--
+
+INSERT INTO `goods` (`gno`, `sno`, `cno`, `gname`, `gstocklimit`, `gnowstock`, `gremark`, `gprice`) VALUES
+('0010101', '001', '00101', '苹果', 1000, 40, '', 5.98),
+('0010102', '001', '00101', '香蕉', 1000, 11, '', 2.54),
+('0010201', '001', '00102', '胡萝卜', 500, 20, '', 4.01),
+('0010301', '001', '00103', '牛肉', 1000, 40, NULL, 40.6),
+('0020101', '002', '00201', '辣条', 600, 23, NULL, 0.5),
+('0020201', '002', '00202', '好丽友', 800, 200, NULL, 3),
+('0020202', '002', '00202', '小蛋糕', 400, 68, NULL, 4),
+('0030101', '003', '00301', '高级钢笔', 600, 300, NULL, 98),
+('0030102', '003', '00301', '狼毫', 200, 15, '', 198),
+('0040101', '004', '00401', '格力变频', 500, 160, NULL, 3999),
+('0040102', '004', '00401', '美的中央', 25, 10, NULL, 15269),
+('0040201', '004', '00402', '美的冰箱', 100, 25, NULL, 2666),
+('0050101', '005', '00501', '黄金酒', 1000, 10, NULL, 500),
+('0050102', '005', '00501', '贵州茅台', 1000, 250, NULL, 1000),
+('0050103', '005', '00501', '迎驾贡酒', 1000, 60, NULL, 80),
+('0050201', '005', '00502', '可口可乐', 1000, 400, NULL, 3.5),
+('0050202', '005', '00502', '芬达', 1000, 450, NULL, 3.5),
+('0060101', '006', '00601', '小娃娃', 200, 10, NULL, 500);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `ono` char(20) NOT NULL,
+  `cno` char(5) NOT NULL,
+  `gno` char(7) NOT NULL,
+  `bno` char(6) NOT NULL,
+  `odate` date NOT NULL,
+  `onumber` int(11) unsigned DEFAULT NULL,
+  `omoney` float unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `orders`
+--
+
+INSERT INTO `orders` (`ono`, `cno`, `gno`, `bno`, `odate`, `onumber`, `omoney`) VALUES
+('1234567890', '00201', '0020101', '311666', '2017-11-01', 50, 25),
+('2017050498542586', '00103', '0010301', '311666', '2017-05-04', 150, 6090),
+('8798798789', '00301', '0030102', '311666', '2017-11-01', 21, 4158);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `report`
+--
+
+CREATE TABLE IF NOT EXISTS `report` (
+  `rano` char(6) NOT NULL,
+  `rtype` varchar(10) NOT NULL,
+  `rtime` date NOT NULL,
+  `rgname` varchar(20) NOT NULL,
+  `rnumber` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `report`
+--
+
+INSERT INTO `report` (`rano`, `rtype`, `rtime`, `rgname`, `rnumber`) VALUES
+('111111', '进货', '2017-11-03', '苹果', 100),
+('111111', '出货', '2017-11-03', '苹果', 100),
+('111111', '进货', '2017-11-03', '苹果', 100),
+('111111', '出货', '2017-11-03', '苹果', 100),
+('111111', '进货', '2017-11-03', '苹果', 100),
+('111111', '出货', '2017-11-03', '苹果', 100);
+
+-- --------------------------------------------------------
+
+--
+-- 替换视图以便查看 `saletable`
+--
+CREATE TABLE IF NOT EXISTS `saletable` (
+`商品名` varchar(20)
+,`数量` bigint(21)
+,`总金额` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `storehouse`
+--
+
+CREATE TABLE IF NOT EXISTS `storehouse` (
+  `sno` char(3) NOT NULL,
+  `ano` char(6) NOT NULL,
+  `sname` varchar(20) NOT NULL,
+  `sremark` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `storehouse`
+--
+
+INSERT INTO `storehouse` (`sno`, `ano`, `sname`, `sremark`) VALUES
+('001', '111111', '1号仓', NULL),
+('002', '111211', '2号仓', NULL),
+('003', '111311', '3号仓', NULL),
+('004', '111411', '4号仓', NULL),
+('005', '123146', '5号仓', NULL),
+('006', '156351', '6号仓', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `supplier`
+--
+
+CREATE TABLE IF NOT EXISTS `supplier` (
+  `suno` char(6) NOT NULL,
+  `suname` varchar(20) NOT NULL,
+  `suremark` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `supplier`
+--
+
+INSERT INTO `supplier` (`suno`, `suname`, `suremark`) VALUES
+('000001', '开心农场', NULL),
+('000002', '牛忙肉庄', NULL),
+('000003', '达利园', NULL),
+('000004', '城北文具', NULL),
+('000005', '格力', NULL),
+('000006', '美的', NULL),
+('000007', '奥克斯', NULL),
+('000008', '戴尔', NULL),
+('000009', '五粮液', NULL),
+('000010', '百年迎驾', NULL),
+('000011', '茅台', NULL),
+('000012', '可口可乐', NULL),
+('000013', '秋名山公司', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 替换视图以便查看 `topgoods`
+--
+CREATE TABLE IF NOT EXISTS `topgoods` (
+`gno` char(7)
+,`sno` char(3)
+,`cno` char(5)
+,`gname` varchar(20)
+,`gstocklimit` int(11) unsigned
+,`gnowstock` int(11) unsigned
+,`gremark` varchar(100)
+,`gprice` float unsigned
+);
+
+-- --------------------------------------------------------
+
+--
+-- 替换视图以便查看 `userinfo`
+--
+CREATE TABLE IF NOT EXISTS `userinfo` (
+`ID` char(6)
+,`姓名` varchar(50)
+,`备注` varchar(100)
+,`等级` int(10) unsigned
+);
+
+-- --------------------------------------------------------
+
+--
+-- 视图结构 `getorder`
+--
+DROP TABLE IF EXISTS `getorder`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getorder` AS select `orders`.`ono` AS `ono`,`orders`.`cno` AS `cno`,`orders`.`gno` AS `gno`,`orders`.`bno` AS `bno`,`orders`.`odate` AS `odate`,`orders`.`onumber` AS `onumber`,`orders`.`omoney` AS `omoney` from `orders`;
+
+-- --------------------------------------------------------
+
+--
+-- 视图结构 `getstorehouse`
+--
+DROP TABLE IF EXISTS `getstorehouse`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getstorehouse` AS select `storehouse`.`sno` AS `仓库编号`,`storehouse`.`sname` AS `仓库名` from `storehouse`;
+
+-- --------------------------------------------------------
+
+--
+-- 视图结构 `saletable`
+--
+DROP TABLE IF EXISTS `saletable`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `saletable` AS select `goods`.`gname` AS `商品名`,count(`orders`.`onumber`) AS `数量`,count(`orders`.`omoney`) AS `总金额` from (`goods` join `orders`) where (`goods`.`gno` = `orders`.`gno`) group by `goods`.`gname`;
+
+-- --------------------------------------------------------
+
+--
+-- 视图结构 `topgoods`
+--
+DROP TABLE IF EXISTS `topgoods`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `topgoods` AS select `goods`.`gno` AS `gno`,`goods`.`sno` AS `sno`,`goods`.`cno` AS `cno`,`goods`.`gname` AS `gname`,`goods`.`gstocklimit` AS `gstocklimit`,`goods`.`gnowstock` AS `gnowstock`,`goods`.`gremark` AS `gremark`,`goods`.`gprice` AS `gprice` from `goods` order by `goods`.`gnowstock` desc limit 0,10;
+
+-- --------------------------------------------------------
+
+--
+-- 视图结构 `userinfo`
+--
+DROP TABLE IF EXISTS `userinfo`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `userinfo` AS select `administrator`.`ano` AS `ID`,`administrator`.`aname` AS `姓名`,`administrator`.`aremark` AS `备注`,`administrator`.`alevel` AS `等级` from `administrator`;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `administrator`
+--
+ALTER TABLE `administrator`
+  ADD PRIMARY KEY (`ano`);
+
+--
+-- Indexes for table `buyer`
+--
+ALTER TABLE `buyer`
+  ADD PRIMARY KEY (`bno`);
+
+--
+-- Indexes for table `classification`
+--
+ALTER TABLE `classification`
+  ADD PRIMARY KEY (`cno`),
+  ADD KEY `fk_classifiction_sno` (`sno`);
+
+--
+-- Indexes for table `goods`
+--
+ALTER TABLE `goods`
+  ADD PRIMARY KEY (`gno`),
+  ADD KEY `fk_goods_sno` (`sno`),
+  ADD KEY `fk_goods_cno` (`cno`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`ono`),
+  ADD KEY `fk_oders_cno` (`cno`),
+  ADD KEY `fk_oders_gno` (`gno`),
+  ADD KEY `fk_oders_bno` (`bno`);
+
+--
+-- Indexes for table `storehouse`
+--
+ALTER TABLE `storehouse`
+  ADD PRIMARY KEY (`sno`),
+  ADD KEY `fk_storehouse_ano` (`ano`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`suno`);
+
+--
+-- 限制导出的表
+--
+
+--
+-- 限制表 `classification`
+--
+ALTER TABLE `classification`
+  ADD CONSTRAINT `fk_classifiction_sno` FOREIGN KEY (`sno`) REFERENCES `storehouse` (`sno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- 限制表 `goods`
+--
+ALTER TABLE `goods`
+  ADD CONSTRAINT `fk_goods_cno` FOREIGN KEY (`cno`) REFERENCES `classification` (`cno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_goods_sno` FOREIGN KEY (`sno`) REFERENCES `storehouse` (`sno`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `fk_oders_bno` FOREIGN KEY (`bno`) REFERENCES `buyer` (`bno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_oders_cno` FOREIGN KEY (`cno`) REFERENCES `classification` (`cno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_oders_gno` FOREIGN KEY (`gno`) REFERENCES `goods` (`gno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- 限制表 `storehouse`
+--
+ALTER TABLE `storehouse`
+  ADD CONSTRAINT `fk_storehouse_ano` FOREIGN KEY (`ano`) REFERENCES `administrator` (`ano`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
